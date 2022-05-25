@@ -62,6 +62,22 @@ export class PhotosService {
     }
   }
 
+  async deletePicture(photo: UserPhoto, index: number) {
+    // remove the img
+    this.photos.splice(index, 1);
+
+    // update storage
+    Storage.set({ key: this.photoStorage, value: JSON.stringify(this.photos) });
+
+    // ?delete from filesystem
+    const filename = photo.filePath.substr(photo.filePath.lastIndexOf('/') + 1);
+
+    await Filesystem.deleteFile({
+      path: filename,
+      directory: Directory.Data,
+    });
+  }
+
   private async savePicture(photo: Photo) {
     // Convert photo to base64 format, required by Filesystem API to save
     const base64Data = await this.readAsBase64(photo);
