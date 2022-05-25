@@ -36,6 +36,11 @@ export class PhotosService {
     const savedImageFile = await this.savePicture(newPhoto);
 
     this.photos.unshift(savedImageFile);
+
+    Storage.set({
+      key: this.photoStorage,
+      value: JSON.stringify(this.photos),
+    });
   }
 
   async loadImages() {
@@ -69,10 +74,6 @@ export class PhotosService {
       path: fileName,
     });
 
-    Storage.set({
-      key: this.photoStorage,
-      value: JSON.stringify(this.photos),
-    });
     if (this.platform.is('hybrid')) {
       return {
         filePath: savedFile.uri,

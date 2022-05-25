@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Photo Gallery
-    </ion-title>
+    <ion-title> Photo Gallery </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,17 +11,23 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-grid>
-  <ion-row>
-    <ion-col size="6" *ngFor="let photo of photos; index as position">
-      <ion-img [src]="photo.webViewPath"></ion-img>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size="6"
+        *ngFor="let photo of photoService.photos; index as position"
+      >
+        <ion-img
+          [src]="photo.webViewPath"
+          (click)="showActionSheet(photo, position)"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addPhoto()">
-        <ion-icon name="camera"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addPhoto()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

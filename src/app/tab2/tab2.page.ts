@@ -10,14 +10,17 @@ export class Tab2Page implements OnInit {
   photos: UserPhoto[] = [];
 
   constructor(public photoService: PhotosService) {
-    this.photos = photoService.photos;
+    // this.photos = this.photoService.photos;
   }
 
   async ngOnInit() {
+    this.photos =  this.photoService.photos;
     await this.photoService.loadImages();
   }
 
   addPhoto() {
     this.photoService.addToGallery();
   }
+
+  showActionSheet(photo: UserPhoto, index: number) {}
 }
